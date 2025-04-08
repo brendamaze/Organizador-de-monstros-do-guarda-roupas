@@ -1,7 +1,7 @@
 """
     Estrutura manual
     Lista encadeada
-    Inserção/remoção/busca
+    Inserção/remoção/busca/alteração
     Console interativo
     Ordenação por recursão
 """
@@ -50,6 +50,43 @@ class ListaLinear:
         
         self.tamanho += 1  # Incrementa o tamanho da lista
         print(f"\nMonstro {nome} adicionado ao armário!")
+        
+    def alterar_monstro(self, nome): #altera atributos do monstro
+        atual = self.inicio
+
+        while atual is not None and atual.monstro.nome != nome:
+            atual = atual.proximo
+
+        if atual is None:
+            print("\nMonstro não encontrado.")
+            return
+
+        monstro = atual.monstro
+        print(f"\nMonstro encontrado! Dados atuais:")
+        print(f"Nome: {monstro.nome}")
+        print(f"Idade: {monstro.idade}")
+        print(f"Origem: {monstro.origem}")
+        print(f"Nível de susto: {monstro.susto}")
+
+        print("\nDigite o novo valor ou aperte Enter para manter o mesmo:")
+
+        novo_nome = input("Novo nome: ")
+        if novo_nome != "":
+            monstro.nome = novo_nome
+
+        nova_idade = input("Nova idade: ")
+        if nova_idade != "":
+            monstro.idade = int(nova_idade)
+
+        nova_origem = input("Nova origem: ")
+        if nova_origem != "":
+            monstro.origem = nova_origem
+
+        novo_susto = input("Novo nível de susto (1 a 10): ")
+        if novo_susto != "":
+            monstro.susto = int(novo_susto)
+
+        print("\nMonstro atualizado com sucesso!")
 
     def remover_monstro(self, nome): 
         """
@@ -162,7 +199,8 @@ while True:
     print("3. Buscar por nível de susto")
     print("4. Ordenar por susto")
     print("5. Exibir Monstros")
-    print("6. Sair")
+    print("6. Alterar Monstro")
+    print("7. Sair")
     opcao = input("Escolha uma opção: ")
 
     if opcao == "1":
@@ -187,6 +225,10 @@ while True:
         armario.exibir_monstros()
 
     elif opcao == "6":
+        nome = input("\nDigite o nome do monstro que deseja alterar: ")
+        armario.alterar_monstro(nome)
+
+    elif opcao == "7":
         break
     else:
         print("Opção inválida!")
